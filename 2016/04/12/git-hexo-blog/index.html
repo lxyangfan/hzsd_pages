@@ -1,0 +1,492 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>工欲善其事，必先利其器—— Git + Hexo 搭建个人博客 | Frank YANG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Frank Yang">
+    
+
+    
+    <meta name="description" content="搭建个人博客，好处很多，能分享个人经历，生活和感悟，没准还能成为网红，嘿嘿嘿……
+废话不多说，首先列出来我参考的资料，在此感谢他们!
+[1] 如何搭建一个独立博客——简明Github Pages与Hexo教程. http://www.jianshu.com/p/05289a4bc8b2 [2] Jacman Hexo主题 wiki. https://github.com/wuchong/jacma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工欲善其事，必先利其器—— Git + Hexo 搭建个人博客">
+<meta property="og:url" content="http://fr4nk.cn/2016/04/12/git-hexo-blog/index.html">
+<meta property="og:site_name" content="Frank YANG">
+<meta property="og:description" content="搭建个人博客，好处很多，能分享个人经历，生活和感悟，没准还能成为网红，嘿嘿嘿……
+废话不多说，首先列出来我参考的资料，在此感谢他们!
+[1] 如何搭建一个独立博客——简明Github Pages与Hexo教程. http://www.jianshu.com/p/05289a4bc8b2 [2] Jacman Hexo主题 wiki. https://github.com/wuchong/jacma">
+<meta property="og:updated_time" content="2016-04-14T08:45:20.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工欲善其事，必先利其器—— Git + Hexo 搭建个人博客">
+<meta name="twitter:description" content="搭建个人博客，好处很多，能分享个人经历，生活和感悟，没准还能成为网红，嘿嘿嘿……
+废话不多说，首先列出来我参考的资料，在此感谢他们!
+[1] 如何搭建一个独立博客——简明Github Pages与Hexo教程. http://www.jianshu.com/p/05289a4bc8b2 [2] Jacman Hexo主题 wiki. https://github.com/wuchong/jacma">
+<meta name="twitter:creator" content="@lxyangfan">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Frank YANG" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/my_ico.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman_114.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman_114.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Frank YANG" title="Frank YANG"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Frank YANG">Frank YANG</a></h1>
+				<h2 class="blog-motto">Be Yourself! Be Happy!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:fr4nk.cn">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/12/git-hexo-blog/" title="工欲善其事，必先利其器—— Git + Hexo 搭建个人博客" itemprop="url">工欲善其事，必先利其器—— Git + Hexo 搭建个人博客</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Frank Yang" target="_blank" itemprop="author">Frank Yang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-04-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装前提"><span class="toc-number">1.</span> <span class="toc-text">安装前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体安装-配置过程"><span class="toc-number">2.</span> <span class="toc-text">具体安装/配置过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结一下，我发布文章的过程"><span class="toc-number">3.</span> <span class="toc-text">总结一下，我发布文章的过程</span></a></li></ol>
+		
+		</div>
+		
+		<p>搭建个人博客，好处很多，能分享个人经历，生活和感悟，没准还能成为网红，嘿嘿嘿……</p>
+<p>废话不多说，首先列出来我参考的资料，在此感谢他们!</p>
+<p>[1] <a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程. http://www.jianshu.com/p/05289a4bc8b2 </a><br>[2] <a href="https://github.com/wuchong/jacman/wiki" target="_blank" rel="external">Jacman Hexo主题 wiki. https://github.com/wuchong/jacman/wiki
+</a><br>[3] <a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo博客框架官方文档. https://hexo.io/zh-cn/docs/index.html</a></p>
+<hr>
+<h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><p>您的电脑必须安装 Git 和 Nodejs。</p>
+<blockquote>
+<ul>
+<li>因为需要使用git上传(push）静态网站到Github网站上；</li>
+<li>Hexo博客框架需要使用nodejs才可以运行；</li>
+</ul>
+</blockquote>
+<p>Github 和 git 什么关系呢？</p>
+<p>（说给我女朋友的，可以理解为 <em>QQ</em>和 <em>QQ空间</em>之间的关系吧）</p>
+<p>git 是一套代码管理系统，是由Linux之父Linus发明的，一种分布式源码管理系统。因为当时Linus写Linux内核的时候，就希望全世界的小伙伴一起帮他写，而他又不想架一个集中式的源码管理系统（如CVS/SVN），所以就写了一个分布式的 源码管理工具。</p>
+<p>Github是 一个代码托管网站，程序员的facebook，社交化代码中心，很多很棒的项目（许多google codes项目都迁移到Github上，可见它多么火）。许多项目在上面开源。所以，你懂得……</p>
+<p>Nodejs是什么鬼？</p>
+<p>Google出品，必属精品。不解释了。简单理解就是 用javascript 写后台程序，which is based on Google chrome V8 engine。后来独立出来了，适用于 高并发，NoSql, Blabla。</p>
+<p>[4] <a href="https://git-scm.com/" target="_blank" rel="external">官方下载 Git. https://git-scm.com/</a><br>[5] <a href="https://nodejs.org/en/" target="_blank" rel="external">官网下载 Nodejs. https://nodejs.org/en/</a></p>
+<hr>
+<h2 id="具体安装-配置过程"><a href="#具体安装-配置过程" class="headerlink" title="具体安装/配置过程"></a>具体安装/配置过程</h2><p>[6] <a href="http://wsgzao.github.io/post/hexo-guide/" target="_blank" rel="external">使用GitHub和Hexo搭建免费静态Blog. http://wsgzao.github.io/post/hexo-guide/</a></p>
+<p>参考<a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">文章[1]</a> ，不再赘述。这篇文章中有很好的小tips，配置Github那里就已经很详细了。</p>
+<p>参考<a href="http://wsgzao.github.io/post/hexo-guide/" target="_blank" rel="external">文章[6]</a>，写了 部署静态网页到GitHub，很不错。</p>
+<hr>
+<h2 id="总结一下，我发布文章的过程"><a href="#总结一下，我发布文章的过程" class="headerlink" title="总结一下，我发布文章的过程"></a>总结一下，我发布文章的过程</h2><ul>
+<li>本地使用Hexo程序生成静态网站<ul>
+<li><code>hexo g</code> 生成 <code>public</code>目录下面所有静态文件</li>
+<li>到 <code>public</code>目录下，拷贝all files 到本地代码仓库</li>
+</ul>
+</li>
+<li>使用git将 静态网站 push 到 github page上<ul>
+<li><code>rescan</code> 查找代码变化</li>
+<li><code>stage changed</code></li>
+<li><code>local commit</code> 将修改commit到本地仓库</li>
+<li><code>push</code> 将修改push到远程仓库</li>
+</ul>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hexo/">hexo</a><a href="/tags/git/">git</a><a href="/tags/github/">github</a><a href="/tags/blog/">blog</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2096051" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/12/angular-study-01/" title="AngularJS 学习之路 01">
+  <strong>上一篇：</strong><br/>
+  <span>
+  AngularJS 学习之路 01</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/11/hello-world/"  title="Hello world">
+ <strong>下一篇：</strong><br/> 
+ <span>Hello world
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/12/git-hexo-blog/" data-title="工欲善其事，必先利其器—— Git + Hexo 搭建个人博客" data-url="http://fr4nk.cn/2016/04/12/git-hexo-blog/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装前提"><span class="toc-number">1.</span> <span class="toc-text">安装前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体安装-配置过程"><span class="toc-number">2.</span> <span class="toc-text">具体安装/配置过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结一下，我发布文章的过程"><span class="toc-number">3.</span> <span class="toc-text">总结一下，我发布文章的过程</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/Huawei/" style="font-size: 10px;">Huawei</a> <a href="/tags/Info/" style="font-size: 10px;">Info</a> <a href="/tags/Samsung/" style="font-size: 10px;">Samsung</a> <a href="/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/angularjs/" style="font-size: 20px;">angularjs</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/help/" style="font-size: 10px;">help</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/welcome/" style="font-size: 10px;">welcome</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/科技/" style="font-size: 10px;">科技</a> <a href="/tags/计划/" style="font-size: 10px;">计划</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="lxyangfan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Frank.Yang. I am what I am. <br/>
+			Welcome to my Kingdom!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/lxyangfan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/lxyangfan" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/lxyangfan" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/yang-fan-97-95" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xcyangfan@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Frank Yang">Frank Yang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fr4nk"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?0a7ba0dac1c904b207ac8cc520c6cbc3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
