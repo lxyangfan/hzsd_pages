@@ -1,0 +1,498 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Angular 学习02 之 路由+拦截器 | Frank YANG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Frank Yang">
+    
+
+    
+    <meta name="description" content="闲话少叙，上代码代码结构，如下：
+
+代码主体包括 controller.js和app.js，其中app.js是程序入口文件。他们都加载到index.html中。
+123456789101112131415161718&amp;lt;!doctype html&amp;gt;&amp;lt;html lang=&quot;en&quot; ng-app=&quot;phonecatApp&quot;&amp;gt;&amp;lt;head&amp;gt;  &amp;lt;meta chars">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular 学习02 之 路由+拦截器">
+<meta property="og:url" content="http://fr4nk.cn/2016/04/14/angular-study-02/index.html">
+<meta property="og:site_name" content="Frank YANG">
+<meta property="og:description" content="闲话少叙，上代码代码结构，如下：
+
+代码主体包括 controller.js和app.js，其中app.js是程序入口文件。他们都加载到index.html中。
+123456789101112131415161718&amp;lt;!doctype html&amp;gt;&amp;lt;html lang=&quot;en&quot; ng-app=&quot;phonecatApp&quot;&amp;gt;&amp;lt;head&amp;gt;  &amp;lt;meta chars">
+<meta property="og:image" content="http://7xsyqy.com2.z0.glb.clouddn.com/image/jpg/160414-01.PNG">
+<meta property="og:updated_time" content="2016-04-18T01:36:31.474Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular 学习02 之 路由+拦截器">
+<meta name="twitter:description" content="闲话少叙，上代码代码结构，如下：
+
+代码主体包括 controller.js和app.js，其中app.js是程序入口文件。他们都加载到index.html中。
+123456789101112131415161718&amp;lt;!doctype html&amp;gt;&amp;lt;html lang=&quot;en&quot; ng-app=&quot;phonecatApp&quot;&amp;gt;&amp;lt;head&amp;gt;  &amp;lt;meta chars">
+<meta name="twitter:image" content="http://7xsyqy.com2.z0.glb.clouddn.com/image/jpg/160414-01.PNG">
+<meta name="twitter:creator" content="@lxyangfan">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Frank YANG" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/my_ico.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman_114.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman_114.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Frank YANG" title="Frank YANG"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Frank YANG">Frank YANG</a></h1>
+				<h2 class="blog-motto">Be Yourself! Be Happy!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:fr4nk.cn">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/14/angular-study-02/" title="Angular 学习02 之 路由+拦截器" itemprop="url">Angular 学习02 之 路由+拦截器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Frank Yang" target="_blank" itemprop="author">Frank Yang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-13T16:00:00.000Z" itemprop="datePublished"> Published 2016-04-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#闲话少叙，上代码"><span class="toc-number">1.</span> <span class="toc-text">闲话少叙，上代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于-依赖注入-和-服务提供者（Providers）"><span class="toc-number">2.</span> <span class="toc-text">关于 依赖注入 和 服务提供者（Providers）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Something-about-（Dependency-Injection-DI）"><span class="toc-number">2.1.</span> <span class="toc-text">Something about （Dependency Injection, DI）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Let’s-talk-about-Provider"><span class="toc-number">2.2.</span> <span class="toc-text">Let’s talk about Provider</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖注入DI-未完待续"><span class="toc-number">3.</span> <span class="toc-text">依赖注入DI - 未完待续</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="闲话少叙，上代码"><a href="#闲话少叙，上代码" class="headerlink" title="闲话少叙，上代码"></a>闲话少叙，上代码</h2><p>代码结构，如下：</p>
+<p><img src="http://7xsyqy.com2.z0.glb.clouddn.com/image/jpg/160414-01.PNG" alt="directory"></p>
+<p>代码主体包括 <code>controller.js</code>和<code>app.js</code>，其中<code>app.js</code>是程序入口文件。他们都加载到<code>index.html</code>中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">ng-app</span>=<span class="string">"phonecatApp"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Google Phone Gallery<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"bower_components/bootstrap/dist/css/bootstrap.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"css/app.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bower_components/angular/angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bower_components/angular-route/angular-route.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/controllers.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-view</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面是 <code>index.html</code>可以看出，这个首页文件沦落为 模板文件<code>template file</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * controller.js 页面控制器js</span><br><span class="line">**/</span></span><br><span class="line"><span class="meta"></span><br><span class="line">'use strict'</span>; <span class="comment">//什么语法？</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Controllers */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// controller变量名 和 Module的第一个参数必须一致</span></span><br><span class="line"><span class="keyword">var</span> ControllersName = angular.module(<span class="string">'ControllersName'</span>, []);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向ControllersName实例化各个小的controller；</span></span><br><span class="line"><span class="comment">// 负责接收数据的 PhoneListCtrl_1</span></span><br><span class="line"><span class="comment">// 负责 网址路由的 PhoneDetailCtrl_2</span></span><br><span class="line"></span><br><span class="line">ControllersName.controller(<span class="string">'PhoneListCtrl_1'</span>, [<span class="string">'$scope'</span>, <span class="string">'$http'</span>,</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $http</span>) </span>&#123;</span><br><span class="line">    $http.get(<span class="string">'phones/phones.json'</span>).success(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      $scope.phones = data;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    $scope.orderProp = <span class="string">'age'</span>;</span><br><span class="line">  &#125;]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其中phoneId是在 其他html模板文件中出现的</span></span><br><span class="line"><span class="comment">// 具体在 phone-list.html文件中</span></span><br><span class="line"></span><br><span class="line">ControllersName.controller(<span class="string">'PhoneDetailCtrl_2'</span>, [<span class="string">'$scope'</span>, <span class="string">'$routeParams'</span>,</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $routeParams</span>) </span>&#123;</span><br><span class="line">    $scope.phoneId = $routeParams.phoneId;</span><br><span class="line">  &#125;]);</span><br></pre></td></tr></table></figure>
+<p><strong>小结一下：</strong></p>
+<blockquote>
+<ul>
+<li>controller变量名 和 Module的第一个参数必须一致；</li>
+<li><code>$</code>开头的变量<code>$scope</code>,<code>$http</code>和<code>$routeParams</code>都是有<strong>身份</strong>的，AngularJS预定义的，所以我们自己不能随便定义<code>$</code>开头的变量；</li>
+</ul>
+</blockquote>
+<p>下面介绍入口文件<code>app.js</code>，说它是入口，类似于<code>C++/C</code>中的<code>main</code>函数一样，加载点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">   app.js 程序入口js</span><br><span class="line">*/</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* App Module */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义了一个变量 app， 其中加载了 ngRoute 和我们自定义的 Controllers 模块</span></span><br><span class="line"><span class="keyword">var</span> phonecatApp = angular.module(<span class="string">'phonecatApp'</span>, [</span><br><span class="line">  <span class="string">'ngRoute'</span>,</span><br><span class="line">  <span class="string">'ControllersName'</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// app需要配置一下 ngRoute，其中 路由的功能是由 routeProvider 提供</span></span><br><span class="line"></span><br><span class="line">phonecatApp.config([<span class="string">'$routeProvider'</span>,</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">$routeProvider</span>) </span>&#123;</span><br><span class="line">    $routeProvider.</span><br><span class="line">      when(<span class="string">'/phones'</span>, &#123;</span><br><span class="line">        templateUrl: <span class="string">'partials/phone-list.html'</span>, <span class="comment">// 在这里连接了模板html文件</span></span><br><span class="line">        controller: <span class="string">'PhoneListCtrl_1'</span>			 <span class="comment">// 因此 phone_ctrl1 就能 bi-bind双向绑定</span></span><br><span class="line">      &#125;).</span><br><span class="line">      when(<span class="string">'/phones/:phoneId'</span>, &#123;</span><br><span class="line">        templateUrl: <span class="string">'partials/phone-detail.html'</span>,</span><br><span class="line">        controller: <span class="string">'PhoneDetailCtrl_2'</span></span><br><span class="line">      &#125;).</span><br><span class="line">      otherwise(&#123;</span><br><span class="line">        redirectTo: <span class="string">'/phones'</span>					<span class="comment">// 默认跳转到 /phones</span></span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;]);</span><br></pre></td></tr></table></figure>
+<p><strong>小结:</strong></p>
+<blockquote>
+<ul>
+<li><code>$routeProvider</code> 来声明 路由，是服务提供者。可以让我们使用浏览器的历史(<em>回退或者前进导航</em>)和<em>书签</em>。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="关于-依赖注入-和-服务提供者（Providers）"><a href="#关于-依赖注入-和-服务提供者（Providers）" class="headerlink" title="关于 依赖注入 和 服务提供者（Providers）"></a>关于 依赖注入 和 服务提供者（Providers）</h2><h3 id="Something-about-（Dependency-Injection-DI）"><a href="#Something-about-（Dependency-Injection-DI）" class="headerlink" title="Something about （Dependency Injection, DI）"></a>Something about （Dependency Injection, DI）</h3><blockquote>
+<ul>
+<li>依赖注入是AngularJS的核心特性；</li>
+<li>当应用引导时，AngularJS会创建一个注入器，我们应用后面所有依赖注入的服务都会需要它；</li>
+<li>注入器 为了载入特定服务模块，如<code>$http</code>和 <code>$route</code>服务，在这些模块中注册所有定义的服务提供者，并且当需要时给一个指定的函数注入依赖（服务）；</li>
+<li>这些依赖通过它们的提供者“懒惰式”（需要时才加载）实例化；</li>
+</ul>
+</blockquote>
+<h3 id="Let’s-talk-about-Provider"><a href="#Let’s-talk-about-Provider" class="headerlink" title="Let’s talk about Provider"></a>Let’s talk about <code>Provider</code></h3><p>提供者是提供（创建）服务实例并且对外提供API接口的对象，它可以被用来控制一个服务的创建和运行时行为。对于<code>$route</code>服务来说，<code>$routeProvider</code>对外提供了API接口，通过API接口允许你为你的应用定义路由规则。</p>
+<h2 id="依赖注入DI-未完待续"><a href="#依赖注入DI-未完待续" class="headerlink" title="依赖注入DI - 未完待续"></a>依赖注入DI - 未完待续</h2><blockquote>
+<ul>
+<li>What is DI?</li>
+<li>Why we need DI?</li>
+<li>When to use DI?</li>
+<li>How to use DI in Angular JS?</li>
+</ul>
+</blockquote>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/route/">route</a><a href="/tags/angularjs/">angularjs</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2096051" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/18/huawei-samsung-VR/" title="三星、华为入局VR：What / Why">
+  <strong>上一篇：</strong><br/>
+  <span>
+  三星、华为入局VR：What / Why</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/13/frontend-learning-plan/"  title="Angular 学习计划">
+ <strong>下一篇：</strong><br/> 
+ <span>Angular 学习计划
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/14/angular-study-02/" data-title="Angular 学习02 之 路由+拦截器" data-url="http://fr4nk.cn/2016/04/14/angular-study-02/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#闲话少叙，上代码"><span class="toc-number">1.</span> <span class="toc-text">闲话少叙，上代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于-依赖注入-和-服务提供者（Providers）"><span class="toc-number">2.</span> <span class="toc-text">关于 依赖注入 和 服务提供者（Providers）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Something-about-（Dependency-Injection-DI）"><span class="toc-number">2.1.</span> <span class="toc-text">Something about （Dependency Injection, DI）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Let’s-talk-about-Provider"><span class="toc-number">2.2.</span> <span class="toc-text">Let’s talk about Provider</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖注入DI-未完待续"><span class="toc-number">3.</span> <span class="toc-text">依赖注入DI - 未完待续</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/Huawei/" style="font-size: 10px;">Huawei</a> <a href="/tags/Info/" style="font-size: 10px;">Info</a> <a href="/tags/Samsung/" style="font-size: 10px;">Samsung</a> <a href="/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/angularjs/" style="font-size: 20px;">angularjs</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/help/" style="font-size: 10px;">help</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/welcome/" style="font-size: 10px;">welcome</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/科技/" style="font-size: 10px;">科技</a> <a href="/tags/计划/" style="font-size: 10px;">计划</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="lxyangfan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Frank.Yang. I am what I am. <br/>
+			Welcome to my Kingdom!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/lxyangfan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/lxyangfan" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/lxyangfan" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/yang-fan-97-95" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xcyangfan@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Frank Yang">Frank Yang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fr4nk"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?0a7ba0dac1c904b207ac8cc520c6cbc3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

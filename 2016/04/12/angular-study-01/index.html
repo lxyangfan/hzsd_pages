@@ -1,0 +1,507 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>AngularJS 学习之路 01 | Frank YANG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Frank Yang">
+    
+
+    
+    <meta name="description" content="AngularJS 简介AngularJS 是一个搭建动态WEB APP的程序框架。HTML语言本身是静态的，导致如今搭建动态WEB APP程序变成了一种任务：究竟我该做哪些事情，才能 耍
+一般来说，trick的方式有2种：
+
+
+brary : 库lib 是指将常用的功能或者函数functions封装，在你想使用的时候，调用它们。如 jQuery
+frameworks : 框架 是指WEB程序的一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJS 学习之路 01">
+<meta property="og:url" content="http://fr4nk.cn/2016/04/12/angular-study-01/index.html">
+<meta property="og:site_name" content="Frank YANG">
+<meta property="og:description" content="AngularJS 简介AngularJS 是一个搭建动态WEB APP的程序框架。HTML语言本身是静态的，导致如今搭建动态WEB APP程序变成了一种任务：究竟我该做哪些事情，才能 耍
+一般来说，trick的方式有2种：
+
+
+brary : 库lib 是指将常用的功能或者函数functions封装，在你想使用的时候，调用它们。如 jQuery
+frameworks : 框架 是指WEB程序的一">
+<meta property="og:updated_time" content="2016-04-13T09:20:26.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AngularJS 学习之路 01">
+<meta name="twitter:description" content="AngularJS 简介AngularJS 是一个搭建动态WEB APP的程序框架。HTML语言本身是静态的，导致如今搭建动态WEB APP程序变成了一种任务：究竟我该做哪些事情，才能 耍
+一般来说，trick的方式有2种：
+
+
+brary : 库lib 是指将常用的功能或者函数functions封装，在你想使用的时候，调用它们。如 jQuery
+frameworks : 框架 是指WEB程序的一">
+<meta name="twitter:creator" content="@lxyangfan">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Frank YANG" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/my_ico.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman_114.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman_114.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Frank YANG" title="Frank YANG"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Frank YANG">Frank YANG</a></h1>
+				<h2 class="blog-motto">Be Yourself! Be Happy!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:fr4nk.cn">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/12/angular-study-01/" title="AngularJS 学习之路 01" itemprop="url">AngularJS 学习之路 01</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Frank Yang" target="_blank" itemprop="author">Frank Yang</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-11T16:00:00.000Z" itemprop="datePublished"> Published 2016-04-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS-简介"><span class="toc-number">1.</span> <span class="toc-text">AngularJS 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个完全客户端解决方案"><span class="toc-number">2.</span> <span class="toc-text">一个完全客户端解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-的爽点（Sweet-spot）"><span class="toc-number">3.</span> <span class="toc-text">Angular 的爽点（Sweet spot）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Angular之禅"><span class="toc-number">3.1.</span> <span class="toc-text">Angular之禅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="AngularJS-简介"><a href="#AngularJS-简介" class="headerlink" title="AngularJS 简介"></a>AngularJS 简介</h2><p>AngularJS 是一个搭建动态WEB APP的程序框架。<br>HTML语言本身是静态的，导致如今搭建动态WEB APP程序变成了一种任务：究竟我该做哪些事情，才能 <em>耍</em></p>
+<p>一般来说，trick的方式有2种：</p>
+<blockquote>
+<ul>
+<li>brary : 库lib 是指将常用的功能或者函数functions封装，在你想使用的时候，调用它们。如 <code>jQuery</code></li>
+<li>frameworks : 框架 是指WEB程序的一种特定的实现，举例子就是 毛坯房，没有装修，你可以具体实现细节部分的装修，毛坯房 = frameworks ；一类框架只适合特定一类应用，你想要 海景别墅，你就不可能去沙漠中选毛坯房。</li>
+</ul>
+</blockquote>
+<p>Angular 采用了其他的方案，它通过指导浏览器理解一些特定的<em>原语</em>来构建HTML。例如：</p>
+<blockquote>
+<ul>
+<li>数据动态绑定，如<code>{\{}\}</code></li>
+<li>DOM控制结构来重复/隐藏DOM片段</li>
+<li>附加新的的行为到DOM元素上，如 DOM 事件处理</li>
+<li>将HTML组合成可重用的部分</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="一个完全客户端解决方案"><a href="#一个完全客户端解决方案" class="headerlink" title="一个完全客户端解决方案"></a>一个完全客户端解决方案</h2><p>在构建Web Application的难题中，Angular 能解决的方面不是一小块。他可以处理所有你曾经手写过的有关DOM和AJAX的和稀泥代码（glue code），并将它们以一种完整定义的方式组合在一起。这使得Angular在构建 增删改查（GRUD）应用方面有一些规矩/固有套路(opinionated)。尽管看起来有些<em>固执</em>，但是它仍然易改。一些开箱即用的特点：</p>
+<blockquote>
+<ul>
+<li>一些构建CRUD应用的功能组合，包括 <strong>数据绑定，基本的模板原语，表格验证，路由，深链接，可重用组件，依赖注入</strong>；</li>
+<li>可测试性：单元测试/端到端测试/Mocks/test harnesses；</li>
+<li>使用目录视图seed应用，测试脚本作为起始点 ；</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Angular-的爽点（Sweet-spot）"><a href="#Angular-的爽点（Sweet-spot）" class="headerlink" title="Angular 的爽点（Sweet spot）"></a>Angular 的爽点（Sweet spot）</h2><p>Angular 通过提出一种更高层次的抽象来简化开发。简化和抽象的代价就是牺牲程序灵活性。<br>Angular 就是为CRUD应用而生，换句话说，可能其他的应用就不适合使用Angular，如 GUI和游戏。他们可能需要更底层的库，如<code>jQuery</code></p>
+<hr>
+<h3 id="Angular之禅"><a href="#Angular之禅" class="headerlink" title="Angular之禅"></a>Angular之禅</h3><p>Angular 框架认为，描述性原语比命令式（过程式）代码在<em>构建UI和将软件模块组织起来</em>等方面有优势，后者在表达业务逻辑上更占优势。</p>
+<blockquote>
+<ul>
+<li>将DOM处理从app逻辑层解耦，碉堡了，提高软件代码可测试性！</li>
+<li>代码测试和代码编写一样重要，测试的复杂度受代码构建方式影响严重！</li>
+<li>将客户端代码从服务器端解耦出来，这是一个 吊爆了 的想法，可以并行开发，2端都可以重用！</li>
+<li>带小弟，完整的过一遍框架的使用，这是非常有帮助的！</li>
+<li>日常工作无脑化，复杂工作简单化（make common tasks trivial and difficult tasks possible）；</li>
+</ul>
+</blockquote>
+<p>Angular 有如下吊爆了的特性：</p>
+<blockquote>
+<ul>
+<li>注册回调函数；</li>
+<li>通过原语操作DOM，更爽；</li>
+<li>操作数据流动，更爽，WEB应用的数据交换，无非是从页面拿数据，在页面展示返回的数据，Angular让这部分代码更简洁；</li>
+<li>兵马未动，粮草先行：启动程序开始前，N多代码就已经加载；使用Angular,我们启动app更爽，很多依赖会自动加载，注入dependency-injection；</li>
+</ul>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1].<a href="https://docs.angularjs.org/guide/introduction" target="_blank" rel="external">AngularJS 1.X 参考文献</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2096051" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/13/frontend-learning-plan/" title="Angular 学习计划">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Angular 学习计划</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/12/git-hexo-blog/"  title="工欲善其事，必先利其器—— Git + Hexo 搭建个人博客">
+ <strong>下一篇：</strong><br/> 
+ <span>工欲善其事，必先利其器—— Git + Hexo 搭建个人博客
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/12/angular-study-01/" data-title="AngularJS 学习之路 01" data-url="http://fr4nk.cn/2016/04/12/angular-study-01/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS-简介"><span class="toc-number">1.</span> <span class="toc-text">AngularJS 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个完全客户端解决方案"><span class="toc-number">2.</span> <span class="toc-text">一个完全客户端解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-的爽点（Sweet-spot）"><span class="toc-number">3.</span> <span class="toc-text">Angular 的爽点（Sweet spot）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Angular之禅"><span class="toc-number">3.1.</span> <span class="toc-text">Angular之禅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/Huawei/" style="font-size: 10px;">Huawei</a> <a href="/tags/Info/" style="font-size: 10px;">Info</a> <a href="/tags/Samsung/" style="font-size: 10px;">Samsung</a> <a href="/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/tags/VR/" style="font-size: 10px;">VR</a> <a href="/tags/angularjs/" style="font-size: 20px;">angularjs</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/help/" style="font-size: 10px;">help</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/route/" style="font-size: 10px;">route</a> <a href="/tags/welcome/" style="font-size: 10px;">welcome</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/科技/" style="font-size: 10px;">科技</a> <a href="/tags/计划/" style="font-size: 10px;">计划</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="lxyangfan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Frank.Yang. I am what I am. <br/>
+			Welcome to my Kingdom!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/lxyangfan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/lxyangfan" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/lxyangfan" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/yang-fan-97-95" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xcyangfan@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Frank Yang">Frank Yang</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"fr4nk"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?0a7ba0dac1c904b207ac8cc520c6cbc3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
